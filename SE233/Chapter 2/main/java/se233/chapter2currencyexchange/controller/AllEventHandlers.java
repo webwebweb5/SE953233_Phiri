@@ -102,25 +102,8 @@ public class AllEventHandlers {
     }
 
     public static void onUnWatch(String code) {
-        try {
-            ArrayList<Currency> currency_list = Launcher.getCurrency();
-            int index = -1;
-            for (int i = 0; i < currency_list.size(); i++) {
-                if (currency_list.get(i).getShortCode().equals(code)) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index != -1) {
-                currency_list.get(index).setWatch(false);
-                currency_list.get(index).setWatchRate(0.0);
-                Launcher.setCurrency(currency_list);
-                Launcher.refreshPane();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        
+        // ช่วยๆกันคิดนะครับทุกๆคน
+        
     }
 }

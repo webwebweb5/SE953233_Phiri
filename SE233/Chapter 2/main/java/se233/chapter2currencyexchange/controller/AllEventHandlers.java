@@ -69,7 +69,6 @@ public class AllEventHandlers {
                 ArrayList<Currency> currency_list = Launcher.getCurrency();
                 // Exercise 4 Let the user use either small or capital letters for the currency short code.
                 Currency c = new Currency(code.get().toUpperCase());
-                // END
                 ArrayList<CurrencyEntity> c_list = FetchData.fetch_range(c.getShortCode(), 6); // change 8 to 6
                 c.setHistorical(c_list);
                 c.setCurrent(c_list.get(c_list.size() - 1));

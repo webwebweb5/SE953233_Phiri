@@ -23,22 +23,39 @@ public class FetchData {
         String dateStart = LocalDate.now().minusDays(N).format(formatter);
         String apiKey = "22b380a4506fa02f0348"; //22b380a4506fa02f0348 //4544bfb65a40abc77e92
         String url_str = String.format("https://free.currconv.com/api/v7/convert?q=%s_THB&compact=ultra&date=%s&endDate=%s&apiKey=%s", src, dateStart, dateEnd, apiKey);
+        // Exercise 1 Show the historical exchange rate up to 14 days as requested by the client.
+        // AllEventHandlers, Initialize
+        // START
+        String DateEnd2 = LocalDate.now().minusDays(N).format(formatter);
+        String DateStart2 = LocalDate.now().minusDays(N+N+1).format(formatter);
+        String url_str2 = String.format("https://free.currconv.com/api/v7/convert?q=%s_THB&compact=ultra&date=%s&endDate=%s&apiKey=%s", src, DateStart2, DateEnd2 ,apiKey);
         ArrayList<CurrencyEntity> histList = new ArrayList<>();
         String retrievedJson = null;
+        String retrievedJson2 = null;
         try {
             retrievedJson = IOUtils.toString(new URL(url_str), Charset.defaultCharset());
+            retrievedJson2 = IOUtils.toString(new URL(url_str2), Charset.defaultCharset());
         } catch (MalformedURLException e) {
             System.out.println("Encountered a Malformed Url exception");
         } catch (IOException e) {
             System.out.println("Encounter an IO exception");
         }
         JSONObject jsonOBJ = new JSONObject(retrievedJson).getJSONObject(String.format("%s_THB", src));
+        JSONObject jsonOBJ2 = new JSONObject(retrievedJson2).getJSONObject(String.format("%s_THB",src));
         Iterator keysToCopyIterator = jsonOBJ.keys();
+        Iterator keyToCopyIterator2 = jsonOBJ2.keys();
         while (keysToCopyIterator.hasNext()) {
             String key = (String) keysToCopyIterator.next();
             Double rate = Double.parseDouble(jsonOBJ.get(key).toString());
             histList.add(new CurrencyEntity(rate, key));
         }
+        while(keyToCopyIterator2.hasNext()){
+            String key = (String) keyToCopyIterator2.next();
+            double rate = Double.parseDouble(jsonOBJ2.get(key).toString());
+            histList.add(new CurrencyEntity(rate, key));
+        }
+        // Exercise 1
+        // END
         histList.sort(new Comparator<CurrencyEntity>() {
             @Override
             public int compare(CurrencyEntity o1, CurrencyEntity o2) {

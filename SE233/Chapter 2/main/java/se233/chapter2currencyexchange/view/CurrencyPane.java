@@ -16,7 +16,7 @@ import se233.chapter2currencyexchange.model.Currency;
 
 import java.util.concurrent.*;
 
-public class CurrencyPane extends BorderPane implements Callable<Void> {
+public class CurrencyPane extends BorderPane {
     private Currency currency;
     private Button watch;
     private Button delete;
@@ -58,18 +58,12 @@ public class CurrencyPane extends BorderPane implements Callable<Void> {
             System.out.println("Encountered an interrupted exception.");
         }
     }
-    // Exercise ?
-    @Override
-    public Void call() throws Exception{
-        System.out.println("hey");
-        return null;
-    }
+
     public void refreshPane(Currency currency) throws ExecutionException,InterruptedException {
         this.currency = currency;
         Pane currencyInfo = genInfoPane();
-        FutureTask futureTask = new FutureTask<VBox>(new DrawGraphTask(currency));
         // Exercise 2???
-//        FutureTask futureTask = new FutureTask<VBox>(new controller.draw.DrawGraphTask(currency));
+        FutureTask futureTask = new FutureTask<VBox>(new DrawGraphTask(currency));
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(futureTask);
         VBox currencyGraph = (VBox)futureTask.get();

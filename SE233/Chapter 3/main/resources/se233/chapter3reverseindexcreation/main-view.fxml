@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<FlowPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.chapter3reverseindexcreation.controller.MainViewController">
+    <children>
+        <MenuBar prefHeight="20" prefWidth="400">
+            <Menu text="something">
+                <MenuItem fx:id="fclose" text="file"/>
+            </Menu>
+        </MenuBar>
+        <AnchorPane prefHeight="240.0" prefWidth="200.0">
+            <children>
+                <Label layoutX="20.0" layoutY="20.0" text="Drop Pdf files below:"/>
+                <ListView fx:id="inputListView" layoutX="10.0" layoutY="45.0" prefHeight="150.0" prefWidth="180.0" style="-fx-border-color: black;" />
+                <Button fx:id="startButton" layoutX="20.0" layoutY="200.0" prefWidth="156.0" prefHeight="20.0" text="Start Indexing"/>
+            </children>
+        </AnchorPane>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <ListView fx:id="listView" prefHeight="240.0" prefWidth="200.0"/>
+            </children>
+        </Pane>
+    </children>
+
+</FlowPane>

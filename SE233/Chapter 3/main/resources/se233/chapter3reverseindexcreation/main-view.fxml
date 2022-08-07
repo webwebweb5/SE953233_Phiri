@@ -6,8 +6,8 @@
 <FlowPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.chapter3reverseindexcreation.controller.MainViewController">
     <children>
         <MenuBar prefHeight="20" prefWidth="400">
-            <Menu text="something">
-                <MenuItem fx:id="fclose" text="file"/>
+            <Menu text="Close">
+                <MenuItem fx:id="fileClose" text="File"/>
             </Menu>
         </MenuBar>
         <AnchorPane prefHeight="240.0" prefWidth="200.0">

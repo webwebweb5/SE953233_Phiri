@@ -60,41 +60,49 @@ public class CurrencyPane extends BorderPane {
     }
 
     public void refreshPane(Currency currency) throws ExecutionException,InterruptedException {
-        this.currency = currency;
-        Pane currencyInfo = genInfoPane();
-        // Exercise 2???
+        // Exercise 2
         FutureTask futureTask = new FutureTask<VBox>(new DrawGraphTask(currency));
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(futureTask);
-        VBox currencyGraph = (VBox)futureTask.get();
-        Pane topArea = genTopArea();
+        VBox currencyGraph = (VBox) futureTask.get();
+        //Execute draw graph task
+
+        futureTask = new FutureTask<VBox>(new DrawCurrencyInfoTask(currency));
+        executor.execute(futureTask);
+        VBox currencyInfo = (VBox) futureTask.get();
+        //Execute draw currency info
+
+        futureTask = new FutureTask<HBox>(new DrawTopAreaTask(currency,watch,unWatch,delete));
+        executor.execute(futureTask);
+        HBox topArea = (HBox) futureTask.get();
+        //Execute draw top area
         this.setTop(topArea);
         this.setLeft(currencyInfo);
         this.setCenter(currencyGraph);
     }
 
-    private Pane genInfoPane() {
-        VBox currencyInfoPane = new VBox(10);
-        currencyInfoPane.setPadding(new Insets(5,25,5,25));
-        currencyInfoPane.setAlignment(Pos.CENTER);
-        Label exchangeString = new Label("");
-        Label watchString = new Label("");
-        exchangeString.setStyle("-fx-font-size:20");
-        watchString.setStyle("-fx-font-size:14");
-        if(this.currency != null){
-            exchangeString.setText(String.format("%s: %.4f",currency.getShortCode(),currency.getCurrent().getRate()));
-            if(this.currency.getWatch()){
-                watchString.setText(String.format("(Watch @%.4f)",currency.getWatchRate()));
-            }
-        }
-        currencyInfoPane.getChildren().addAll(exchangeString,watchString);
-        return currencyInfoPane;
-    }
-    private HBox genTopArea(){
-        HBox topArea = new HBox(10);
-        topArea.setPadding(new Insets(5));
-        topArea.getChildren().addAll(watch,unWatch,delete);
-        ((HBox)topArea).setAlignment(Pos.CENTER_RIGHT);
-        return topArea;
-    }
+//     private Pane genInfoPane() {
+//         VBox currencyInfoPane = new VBox(10);
+//         currencyInfoPane.setPadding(new Insets(5,25,5,25));
+//         currencyInfoPane.setAlignment(Pos.CENTER);
+//         Label exchangeString = new Label("");
+//         Label watchString = new Label("");
+//         exchangeString.setStyle("-fx-font-size:20");
+//         watchString.setStyle("-fx-font-size:14");
+//         if(this.currency != null){
+//             exchangeString.setText(String.format("%s: %.4f",currency.getShortCode(),currency.getCurrent().getRate()));
+//             if(this.currency.getWatch()){
+//                 watchString.setText(String.format("(Watch @%.4f)",currency.getWatchRate()));
+//             }
+//         }
+//         currencyInfoPane.getChildren().addAll(exchangeString,watchString);
+//         return currencyInfoPane;
+//     }
+//     private HBox genTopArea(){
+//         HBox topArea = new HBox(10);
+//         topArea.setPadding(new Insets(5));
+//         topArea.getChildren().addAll(watch,unWatch,delete);
+//         ((HBox)topArea).setAlignment(Pos.CENTER_RIGHT);
+//         return topArea;
+//     }
 }

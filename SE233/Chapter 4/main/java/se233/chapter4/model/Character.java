@@ -3,16 +3,16 @@ package se233.chapter4.model;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
 import se233.chapter4.Launcher;
 import se233.chapter4.view.Platform;
 
 public class Character extends Pane {
-//    Logger logger = LoggerFactory.getLogger(Character.class);
-    public static final Logger logger = LogManager.getLogger(Character.class.getName());
+    Logger logger = LoggerFactory.getLogger(Character.class);
+//     public static final Logger logger = LogManager.getLogger(Character.class.getName());
     public static final int CHARACTER_WIDTH = 32;
     public static final int CHARACTER_HEIGHT = 64;
     private Image characterImg;
